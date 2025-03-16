@@ -37,7 +37,7 @@ const App = () => {
   }
   return (
     <div>
-      <h1>Product Catalogue</h1>
+      <h1 className="pagehead">Product Catalogue</h1>
       <AddProductForm onAdd={addProd} />
       <ProductList products={products} onDelete={handleDelete} onUpdate={handleUpdate} />
       <ClearAllButton onClear={handleClearAll} />

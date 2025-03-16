@@ -1,30 +1,4 @@
-// import React, { useState } from 'react';
 
-// const AddProductForm = ({ onAdd }) => {
-//   const [name, setName] = useState('');
-//   const [price, setPrice] = useState('');
-//   const [category, setCategory] = useState('');
-
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-//     if (!name || !price || !category) return;
-//     onAdd({ name, price: parseFloat(price), category });
-//     setName('');
-//     setPrice('');
-//     setCategory('');
-//   };
-
-//   return (
-//     <form onSubmit={handleSubmit}>
-//       <input type="text" placeholder="Product Name" value={name} onChange={(e) => setName(e.target.value)} required />
-//       <input type="number" placeholder="Price" value={price} onChange={(e) => setPrice(e.target.value)} required />
-//       <input type="text" placeholder="Category" value={category} onChange={(e) => setCategory(e.target.value)} required />
-//       <button type="submit">Add Product</button>
-//     </form>
-//   );
-// };
-
-// export default AddProductForm;
 import React, { useState } from 'react';
 
 const AddProductForm = ({ onAdd }) => {

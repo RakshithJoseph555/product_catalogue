@@ -9,6 +9,7 @@ from bson import ObjectId
 from dotenv import load_dotenv
 import os
 from datetime import datetime, timedelta
+import re
 load_dotenv()
 app = Flask(__name__)
 CORS(app)
@@ -32,7 +33,7 @@ def generate_blob_sas_url(blob_name):
         blob_name=blob_name,
         account_key=ACCOUNT_KEY,
         permission=BlobSasPermissions(read=True),
-        expiry=datetime.utcnow() + timedelta(hours=1)
+        expiry=datetime.utcnow() + timedelta(days=7)
     )
     return f"https://{ACCOUNT_NAME}.blob.core.windows.net/{CONTAINER_NAME}/{blob_name}?{sas_token}"
 
@@ -98,7 +99,7 @@ def list_products():
         if "image_url" in product:
             blob_name = extract_blob_name(product["image_url"])
             if blob_name:
-                product["image_url"] = generate_sas_url(blob_name)
+                product["image_url"] = generate_blob_sas_url(blob_name)
 
     return jsonify(products), 200
 

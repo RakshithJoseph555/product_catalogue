@@ -25,14 +25,14 @@ const handleFileChange = async (e) => {
 
     try {
         console.log("Uploading image...");
-        const img_url = await uploadImage(file);  // ✅ Await the function
+        const img_url = await uploadImage(file);
 
         if (!img_url) {
             throw new Error("Image URL is undefined");
         }
 
         console.log("Uploaded Image URL:", img_url);
-        setNewImageUrl(img_url);  // ✅ This runs after image is uploaded
+        setNewImageUrl(img_url);  
     } catch (error) {
         console.error("Image upload failed:", error);
         setError("Image upload failed.");
@@ -44,19 +44,9 @@ const handleFileChange = async (e) => {
 };
 
 
-//   const handleUpdate = async () => {
-    
-//     if (newImage) {
-//         setUpdatedProduct({ ...updatedProduct, imageUrl: newImageUrl });
-//     }
-
-//     onUpdate(product._id, updatedProduct);
-// //     setIsEditing(false);
-//     setIsEditing(false);
-//   };
 
 const handleUpdate = async () => {
-    let finalImageUrl = updatedProduct.imageUrl; // Default to existing image URL
+    let finalImageUrl = updatedProduct.imageUrl; 
 
     if (newImage) {
         setUploading(true);
@@ -70,20 +60,18 @@ const handleUpdate = async () => {
 
             console.log("New image uploaded:", img_url);
             finalImageUrl = img_url;
-            setNewImageUrl(img_url);  // Store the uploaded URL
+            setNewImageUrl(img_url); 
         } catch (error) {
             console.error("Image upload error:", error);
             setError("Failed to upload image.");
             setUploading(false);
-            return; // Stop execution if the upload fails
+            return; 
         }
         setUploading(false);
     }
 
-    // Ensure we are setting the correct URL
     setUpdatedProduct(prev => ({ ...prev, imageUrl: finalImageUrl }));
 
-    // Update the product with the new or existing image URL
     onUpdate(product._id, { ...updatedProduct, imageUrl: finalImageUrl });
 
     setIsEditing(false);
@@ -111,15 +99,16 @@ const handleUpdate = async () => {
           />
           <input type="file" accept="image/*" onChange={handleFileChange} />
           {newImage && <img src={URL.createObjectURL(newImage)} alt="Preview" className="preview-img" />}
-          <button onClick={handleUpdate} disabled={uploading}>{uploading ? "Uploading..." : "Save"}</button>
+          <button className="bg-green-500" onClick={handleUpdate} disabled={uploading}>{uploading ? "Uploading..." : "Save"}</button>
+          <button className="bg-red-500" onClick={()=>setIsEditing(false)}>Cancel</button>
         </>
       ) : (
         <>
           {product.imageUrl && <img src={product.imageUrl} alt={product.name} className="product-image" />}
           <h3>{product.name}</h3>
           <p>Price: ${product.price}</p>
-          <button onClick={() => setIsEditing(true)}>Update</button>
-          <button onClick={() => onDelete(product._id)}>Delete</button>
+          <button onClick={() => setIsEditing(true)} className="bg-green-500">Update</button>
+          <button onClick={() => onDelete(product._id) } className="bg-red-500">Delete</button>
         </>
       )}
     </div>
